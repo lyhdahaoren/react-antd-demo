@@ -26,7 +26,7 @@ class Login extends React.Component{
   };
 
   put = ()=>{
-    Cookie.set('token',this.ipt)
+    Cookie.set('token',this.state.ipt)
     this.props.history.replace('/app')
   };
 
