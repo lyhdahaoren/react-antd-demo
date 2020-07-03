@@ -16,6 +16,7 @@ class Login extends React.Component{
 
   componentDidMount(){
     // console.log(process.env.REACT_APP_ENV)
+    console.log('完成')
     console.log(this.props)
   }
 
