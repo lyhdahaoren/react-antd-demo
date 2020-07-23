@@ -4,6 +4,11 @@ import Cookie from 'js-cookie'
 import Logins from '@/styledComponents/login'
 import {inject, observer} from "mobx-react";
 
+//子路由组件（如果还有子路由继续嵌套）
+//路由组件
+import Routes from '@/router/route'
+
+
 @inject('store')
 @observer
 class Login extends React.Component{
@@ -15,7 +20,6 @@ class Login extends React.Component{
   }
 
   componentDidMount(){
-    // console.log(process.env.REACT_APP_ENV)
     console.log(this.props)
   }
 
@@ -32,11 +36,10 @@ class Login extends React.Component{
 
   render(){
     return(
-      <Logins>
-        <label form='#id'>用户名</label>
-        <input type="text" id='id' onChange={(e)=>this.changeData(e)}/>
-        <button onClick={()=>this.put()}>登录</button>
-      </Logins>
+      <>
+        <div>123</div>
+        <Routes routesList={this.props.itemList} />
+      </>
     )
   }
 }

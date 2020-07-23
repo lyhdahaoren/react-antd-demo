@@ -11,10 +11,11 @@ class Guard extends React.Component{
     }
   }
   componentWillMount(){
-    console.log('守卫成功');
     if(this.props.location.path != '/login'){
       if(!Cookie.get('token')){
         this.props.history.replace('/login')
+      }else{
+        console.log('我没有')
       }
     }
     //可以做一些权限判断  或者  其他判断

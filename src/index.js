@@ -1,52 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import {BrowserRouter as Router, Route, Switch,Redirect} from "react-router-dom";
-//引入路由守卫组件
-import Guard from '@/components/public/Guard'
+import { BrowserRouter as Router } from "react-router-dom";
 //引入路由list
 import routesList from '@/router'
-//mobx
-import {Provider} from 'mobx-react'
-import basicStore from './store/basic';
-
 
 //路由组件
-function RouteWithSubRoutes(route) {
-  const Com = route.component;
-  const c = route.children;
-  return (
-    <Route
-      path={route.path}
-      render = {(route)=> <Guard><Com itemList={ c } {...route}/></Guard>}
-      // exact={true}
-    >
-    </Route>
-  );
-}
+import Routes from '@/router/route'
 
 
-//注入store
-const store = new basicStore();
+// icon
+import '@/assets/icon'
+
+
+//mobx
+import {Provider} from 'mobx-react'
+import store from '@/store'
 
 
 ReactDOM.render(
 	//是否开启严格模式
   // <React.StrictMode>
-  <Provider store={store}>
+  <Provider {...store}>
     <Router>
-      <Switch>
-        <Route path='/' exact={true}>
-          <Redirect to='/app'></Redirect>
-        </Route>
-        {routesList.map((route, i) => (
-          <RouteWithSubRoutes key={i} {...route} />
-        ))}
-        {/*/重定向*/}
-        {/*<Route exact={true} path="/" component={Welcome}/>*/}
-        {/*404页面*/}
-        {/*<Route component={404}/>*/}
-      </Switch>
+      <Routes routesList={routesList} />
     </Router>
   </Provider>,
   // </React.StrictMode>,
