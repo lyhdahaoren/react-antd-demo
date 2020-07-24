@@ -8,6 +8,17 @@ export const LayBox = Styled.div`
     background: #fff;
     ${flex_b_c};
   }
+  .ass{
+    background: #fff;
+  }
+  .top{
+    position:fixed;
+    left:0;
+    z-index:999;
+    width:100%;
+    padding-left:200px;
+    top:0
+  }
 `;
 
 export const RightMenu = Styled.div`

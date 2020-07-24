@@ -8,6 +8,12 @@ const loadable = (filename) => Loadable({
 //路由列表
 const routesList = [
   {
+    path:'/login',
+    name:'登录',
+    exact:true,
+    component:loadable('login'),
+  },
+  {
     path:'/',
     name:'框架',
     component:loadable('apps'),
@@ -73,43 +79,7 @@ const routesList = [
                 path: '/d/ba/a',
                 name: '123123',
                 component:loadable('login'),
-              },
-              {
-                path: '/d/ba/b',
-                name: '123123',
-                component:loadable('login'),
-                children:[
-                  {
-                    path: '/d/ba/b/a',
-                    name: '123123',
-                    component:loadable('login'),
-                  },
-                  {
-                    path: '/d/ba/b/b',
-                    name: '123123',
-                    component:loadable('login'),
-                    children:[
-                      {
-                        path: '/d/ba/b/b/a',
-                        name: '123123',
-                        component:loadable('login'),
-                      },
-                      {
-                        path: '/d/ba/b/b/b',
-                        name: '123123',
-                        component:loadable('login'),
-                        children:[
-                          {
-                            path: '/d/ba/b/b/b/a',
-                            name: '123123',
-                            component:loadable('login'),
-                          }
-                        ]
-                      },
-                    ]
-                  },
-                ]
-              },
+              }
             ]
           },
           {
@@ -120,12 +90,6 @@ const routesList = [
         ]
       },
     ]
-  },
-  {
-    path:'/login',
-    name:'登录',
-    exact:true,
-    component:loadable('login'),
   }
 ];
 

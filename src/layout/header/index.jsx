@@ -7,10 +7,10 @@ const { Header } = Layout;
 
 export default function (props) {
 return(
-      <Header className="site-layout-background1" style={{ position: 'sticky', top: 0, left: 0 }}>
+      <Header className="site-layout-background1">
         <Crumb></Crumb>
         <Rightmenu>
-123
+          我是很多增加的按钮
         </Rightmenu>
       </Header>
   )

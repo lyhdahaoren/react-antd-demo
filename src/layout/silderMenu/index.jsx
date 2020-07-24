@@ -14,7 +14,6 @@ import SvgIcon from "../../components/public/svg";
 
 const { SubMenu } = Menu;
 
-
 @inject('store1')
 @observer
 class JzMenu extends React.Component{
@@ -23,24 +22,36 @@ class JzMenu extends React.Component{
   }
 
   state = {
+    unListen : '',
+    selectKeys: [],
     openKeys : [],
     crumbData : []
   }
 
-  componentWillMount() {
-    const arr = this.getFaterRoute(this.props.location.pathname);
+  componentDidMount() {
+    this.changeStatus(this.props.location.pathname)
+    if(this.state.unListen) return;
+    this.state.unListen = this.props.history.listen((val)=>{
+      this.changeStatus(val.pathname)
+    })
+  }
+
+  componentWillUnmount() {
+    // 取消监听
+    this.state.unListen && this.state.unListen();
+  }
+
+  //初始或者路由切换触发面包屑 导航栏变化
+  changeStatus = (val) => {
+    const arr = this.getFaterRoute(val);
     this.setState({
       openKeys : arr
     })
+    console.log('我是', val)
+    this.setState({
+      selectKeys : [val]
+    });
     this.computedCrumbData(arr);
-  }
-
-  componentDidMount() {
-    this.props.history.listen((val)=>{
-      const arr = this.getFaterRoute(val.pathname);
-      console.log('霸霸们', arr)
-      this.computedCrumbData(arr);
-    })
   }
 
   //获取当前路由的父级们
@@ -52,9 +63,10 @@ class JzMenu extends React.Component{
     })
     return defaultArr
   }
-  //同步面包屑
+
+  //同步面包屑，同步tags
   computedCrumbData = (val)=> {
-    const list = this.props.store1.routes.length ? this.props.store1.routes : List[0].children
+    const list = this.props.store1.routes.length ? this.props.store1.routes : List[1].children
     let arr = [];
     let faterRoute = list;
     val.map(item=>{
@@ -64,19 +76,29 @@ class JzMenu extends React.Component{
             name: faterRoute[i].name,
             path: faterRoute[i].path
           })
-          faterRoute = faterRoute[i].children;
+          faterRoute = faterRoute[i].children || [];
           break;
         }
       }
     })
     console.log('面包屑', arr)
     this.props.store1.setCrumbData(arr)
+    let lastData = arr[arr.length - 1] || '';
+    this.checkRouteBytags(lastData)
+  }
 
+  //判断当前route是否存在tags中
+
+  checkRouteBytags = (val)=>{
+    let { tags } = this.props.store1
+    if(!tags.find(item=>item.path === val.path)){
+      this.props.store1.setTags([...tags,val])
+    }
   }
 
   //动态生成submenu
   ReturnMenu = (props) => {
-    const list = props.list.length ? props.list : List[0].children
+    const list = props.list.length ? props.list : List[1].children
     return (
       list.map((item,index)=>{
         if(item.children && item.children.length){
@@ -119,7 +141,7 @@ class JzMenu extends React.Component{
           <Menu
               // onClick={this.handleClick}
               theme={'dark'}
-              defaultSelectedKeys={[this.props.location.pathname]}
+              selectedKeys={this.state.selectKeys}
               mode="inline"
               openKeys={this.state.openKeys}
               onOpenChange={this.onOpenChange}

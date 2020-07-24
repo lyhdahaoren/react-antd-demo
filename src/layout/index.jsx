@@ -8,6 +8,7 @@ import Routes from '@/router/route'
 //menu
 import JzMenu from './silderMenu'
 import Headers from './header'
+import TagsWrapper from "./tagsNavWrapper";
 //样式组件
 import { LayBox } from "../styledComponents/layout";
 
@@ -33,10 +34,13 @@ class JzLayOut extends React.Component{
           >
             <JzMenu {...this.props} />
           </Sider>
-          <Layout className="site-layout" style={{ marginLeft: 200,overflowX: 'visible' }}>
-            <Headers></Headers>
-            <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-              <div className="site-layout-background" style={{ padding: 24, textAlign: 'center' }}>
+          <Layout className="site-layout" style={{ marginLeft: 200 }}>
+            <div className='top'>
+              <Headers></Headers>
+              <TagsWrapper></TagsWrapper>
+            </div>
+            <Content style={{ margin: '24px 16px 0', overflow: 'initial',paddingTop:'90px' }}>
+              <div className="site-layout-background ass" style={{ padding: 24, textAlign: 'center' }}>
                 <Routes routesList={this.props.itemList} />
                 ...
                 <br />
