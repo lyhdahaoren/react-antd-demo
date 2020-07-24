@@ -4,7 +4,7 @@ import { flex_c_c } from "../../styledComponents/public";
 
 export const MenuContent = styled.div`
   .logo{
-    margin:10px 16px 0;
+    margin:20px 16px;
     height:40px;
     background:#777;
     color:#fefefe;

@@ -23,9 +23,11 @@ class tagsWrapper extends React.Component{
               {
                 tags.map((item,index)=>{
                   return(
-                      <Tag icon={<span style={{fontSize:'20px',display:'block',height:'20px'}}><SvgIcon iconClass='rac' /></span>} closable key={index}>
-                        {item.name}
-                      </Tag>
+                      <div className='asdd'>
+                        <Tag icon={<span className='diandian' style={{fontSize:'20px',display:'block',height:'20px'}}><SvgIcon iconClass='rac' /></span>} closable key={index}>
+                          {item.name}
+                        </Tag>
+                      </div>
                   )
                 })
               }

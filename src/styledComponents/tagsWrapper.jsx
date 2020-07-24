@@ -14,7 +14,7 @@ const TagsWrapper = Styled.div`
       overflow: visible;
       white-space: nowrap;
       span{
-        div{
+        .asdd{
           width:100px;
           height: 32px;
           line-height: 32px;
@@ -22,6 +22,7 @@ const TagsWrapper = Styled.div`
           color: #515a6e!important;
           background: #fff!important;
           padding: 0 12px;
+          margin-right:3px;
           display:inline-block
         }
       }
@@ -29,8 +30,12 @@ const TagsWrapper = Styled.div`
   .ant-tag{
     ${flex_c_c};
     padding-top:5px;
+    border:0;
     padding-bottom:5px;
     background:#fff;
+  }
+  .diandian{
+    color:#e8eaec;
   }
 `;
 
