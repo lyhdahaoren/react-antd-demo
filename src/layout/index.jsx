@@ -39,7 +39,7 @@ class JzLayOut extends React.Component{
               <Headers></Headers>
               <TagsWrapper></TagsWrapper>
             </div>
-            <Content style={{ margin: '24px 16px 0', overflow: 'initial',paddingTop:'90px' }}>
+            <Content style={{ margin: '24px 16px 0', overflow: 'initial',paddingTop:'95px' }}>
               <div className="site-layout-background ass" style={{ padding: 24, textAlign: 'center' }}>
                 <Routes routesList={this.props.itemList} />
                 ...

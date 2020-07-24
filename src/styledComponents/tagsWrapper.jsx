@@ -5,6 +5,7 @@ const TagsWrapper = Styled.div`
   width:100%;
   .scroll-outer{
     background:#f0f0f0;
+    padding:4px 0;
     box-shadow: inset 0 0 3px 2px hsla(0,0%,39.2%,.1);
   }
   .scroll-body{
