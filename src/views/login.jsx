@@ -46,7 +46,7 @@ class Login extends React.Component{
   onFinish = (val)=> {
     Cookie.set('token',val.qrcode);
     this.props.user.setInfo(val)
-    this.props.history.replace('/')
+    this.props.history.replace('/a')
   }
 
 

@@ -87,7 +87,7 @@ class JzMenu extends React.Component{
       this.props.history.replace('/404')
       document.title = '404'
     }else{
-      document.title = arr[arr.length - 1].name
+      document.title = arr.length ? arr[arr.length - 1].name || '' : List.find(t => t.path === val[0]).name
     }
     this.props.store1.setCrumbData(arr)
     let lastData = arr[arr.length - 1] || '';
