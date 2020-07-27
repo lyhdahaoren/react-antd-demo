@@ -40,6 +40,7 @@ class Login extends React.Component{
   }
 
   componentDidMount(){
+
   }
 
   onFinish = (val)=> {

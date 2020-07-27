@@ -10,7 +10,9 @@ return(
       <Header className="site-layout-background1">
         <Crumb></Crumb>
         <Rightmenu>
-          我是很多增加的按钮
+          <div className='add' style={{marginRight:'10px'}}>
+            我是很多增加的按钮
+          </div>
         </Rightmenu>
       </Header>
   )

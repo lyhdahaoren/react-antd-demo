@@ -28,6 +28,28 @@ class Star extends React.PureComponent{
       ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
     }
 
+    const _this = this;
+    _this.init(_this);
+    document.addEventListener("visibilitychange", function() {
+      let hidden = document.hidden;
+      if(hidden){
+        window.cancelAnimationFrame(_this.state.id);
+        clearInterval(_this.state.timer)
+      }else{
+        _this.init()
+      }
+      // Modify behavior...
+    });
+
+
+  }
+
+  componentWillUnmount() {
+    window.cancelAnimationFrame(this.state.id);
+    clearInterval(this.state.timer)
+  }
+
+  init = () =>{
     let id = window.requestAnimationFrame(this.moveItem);
     let timer = setInterval(()=>{
       this.setState({
@@ -38,11 +60,6 @@ class Star extends React.PureComponent{
       id,
       timer
     })
-  }
-
-  componentWillUnmount() {
-    window.cancelAnimationFrame(this.state.id);
-    clearInterval(this.state.timer)
   }
 
   createARC = (ys)=>{

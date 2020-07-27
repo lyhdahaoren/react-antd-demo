@@ -1,9 +1,13 @@
-import {observable,action} from "mobx";
+import {observable, action, set} from "mobx";
 
 class routesStore {
   @observable routes = [];
   @observable crumb = [];
-  @observable tags = [];
+  @observable tags = [{
+    path:'/a',
+    name:'首页'
+  }];
+  @observable activeKey = 0;
 
   @action.bound setRoutes(val){
     this.routes = val;
@@ -14,8 +18,12 @@ class routesStore {
   }
 
   @action.bound setTags(val){
-    this.tags = val;
+    this.tags = [...new Set([...this.tags,...val])];
     console.log('存进去了',val)
+  }
+  @action.bound setActiveKey(val){
+    this.activeKey = val;
+    console.log('我是当前触发',val)
   }
 }
 

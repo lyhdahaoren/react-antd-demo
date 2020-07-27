@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from "react-router";
 import { Menu } from "antd";
 import { MenuContent } from "./indexStyle";
 import {
@@ -47,7 +48,7 @@ class JzMenu extends React.Component{
     this.setState({
       openKeys : arr
     })
-    console.log('我是', val)
+    console.log('我是', arr)
     this.setState({
       selectKeys : [val]
     });
@@ -66,7 +67,7 @@ class JzMenu extends React.Component{
 
   //同步面包屑，同步tags
   computedCrumbData = (val)=> {
-    const list = this.props.store1.routes.length ? this.props.store1.routes : List[1].children
+    const list = this.props.store1.routes.length ? this.props.store1.routes : List[2].children
     let arr = [];
     let faterRoute = list;
     val.map(item=>{
@@ -81,29 +82,35 @@ class JzMenu extends React.Component{
         }
       }
     })
-    console.log('面包屑', arr)
+    console.log('面包屑', arr,val)
+    if(arr.length && arr.length !== val.length){
+      this.props.history.replace('/404')
+    }
     this.props.store1.setCrumbData(arr)
     let lastData = arr[arr.length - 1] || '';
     this.checkRouteBytags(lastData)
   }
 
   //判断当前route是否存在tags中
-
   checkRouteBytags = (val)=>{
     let { tags } = this.props.store1
-    if(!tags.find(item=>item.path === val.path)){
+    const item = tags.find(item=>item.path === val.path)
+    const index = tags.findIndex(item=>item.path === val.path)
+    if(!item){
+      console.log(val.path, this.props.location.pathname)
       this.props.store1.setTags([...tags,val])
     }
+    this.props.store1.setActiveKey(index !== -1 ? index : tags.length)
   }
 
   //动态生成submenu
   ReturnMenu = (props) => {
-    const list = props.list.length ? props.list : List[1].children
+    const list = props.list.length ? props.list : List[2].children
     return (
       list.map((item,index)=>{
-        if(item.children && item.children.length){
+        if(item.children && item.children.length && !item.hideMenu){
           return (
-              <SubMenu key={item.path} icon={ item.icon ? <SvgIcon iconClass={item.icon} /> : <MailOutlined />} title={item.name}>
+              <SubMenu key={item.path} icon={ item.icon ? <SvgIcon iconClass={item.icon} /> : null} title={item.name}>
                 {
                   this.ReturnMenu({list:item.children})
                 }
@@ -111,7 +118,7 @@ class JzMenu extends React.Component{
           )
         }else{
           return (
-              <Menu.Item key={item.path} icon={item.icon || <MailOutlined />} onClick={()=>this.props.history.push(`${item.path}`)}>{item.name}</Menu.Item>
+              <Menu.Item key={item.path} icon={ item.icon ? <SvgIcon iconClass={item.icon} /> : null} onClick={()=>this.props.history.push(item.Redirect ? item.Redirect : item.path)}>{item.name}</Menu.Item>
           )
         }
       })
@@ -141,7 +148,7 @@ class JzMenu extends React.Component{
           <Menu
               // onClick={this.handleClick}
               theme={'dark'}
-              selectedKeys={this.state.selectKeys}
+              selectedKeys={this.state.openKeys}
               mode="inline"
               openKeys={this.state.openKeys}
               onOpenChange={this.onOpenChange}
@@ -155,4 +162,4 @@ class JzMenu extends React.Component{
   }
 }
 
-export default JzMenu
+export default withRouter(JzMenu)

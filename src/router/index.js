@@ -14,6 +14,12 @@ const routesList = [
     component:loadable('login'),
   },
   {
+    path:'/404',
+    name:'页面未找到',
+    exact:true,
+    component:loadable('noMatch'),
+  },
+  {
     path:'/',
     name:'框架',
     component:loadable('apps'),
@@ -26,7 +32,7 @@ const routesList = [
         },
         exact:true,
         icon: 'saas',
-        name:'dashboard',
+        name:'首页',
         component:loadable('app/index'),
       },
       {
@@ -35,13 +41,13 @@ const routesList = [
           name: '123'
         },
         icon: 'saas',
-        name:'dashboard',
+        name:'我是个栏目',
         component:loadable('app/index'),
         children:[
           {
             path: '/b/a',
-            name: '123123',
-            component:loadable('login'),
+            name: '我是个栏目的子栏目',
+            component:loadable('page'),
           }
         ]
       },
@@ -51,14 +57,27 @@ const routesList = [
           name: '123'
         },
         icon: 'saas',
-        name:'dashboard',
+        name:'我是个栏目1',
         component:loadable('app/index'),
         children:[
           {
             path: '/c/b',
-            name: '123123',
-            component:loadable('login'),
-          }
+            Redirect:'/c/b/a',
+            name: '我是个栏目1的子栏目1（我重定向到了列表页）',
+            hideMenu:true,
+            children: [
+              {
+                path: '/c/b/a',
+                name: '我是个栏目1的子栏目1的列表，但是我隐藏了（列表，详情，新增，修改）',
+                component:loadable('page'),
+              },{
+                path: '/c/b/b',
+                name: '我是个栏目1的子栏目1的详情，但是我隐藏了（列表，详情，新增，修改）',
+                component:loadable('page'),
+              }
+            ],
+            component:loadable('page'),
+          },
         ]
       },
       {
@@ -73,19 +92,19 @@ const routesList = [
           {
             path: '/d/ba',
             name: '123123',
-            component:loadable('login'),
+            component:loadable('page'),
             children:[
               {
                 path: '/d/ba/a',
                 name: '123123',
-                component:loadable('login'),
+                component:loadable('page'),
               }
             ]
           },
           {
             path: '/d/bb',
             name: '123123',
-            component:loadable('login')
+            component:loadable('page'),
           }
         ]
       },
