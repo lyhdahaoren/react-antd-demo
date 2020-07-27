@@ -7,20 +7,26 @@ class Guard extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      isUser:true
+      isUser:false
     }
   }
   componentWillMount(){
-    if(this.props.location.path != '/login'){
-      if(!Cookie.get('token')){
+    let { pathname } = this.props.location
+    if(!Cookie.get('token')){
+      if(pathname !== '/login'){
         this.props.history.replace('/login')
       }else{
-        console.log('我没有')
+        this.setState({
+          isUser:true
+        })
       }
+    }else{
+      this.setState({
+        isUser:true
+      })
     }
     //可以做一些权限判断  或者  其他判断
     //window.scrollTo(0,0);
-
   }
   render(){
     return(
