@@ -30,16 +30,7 @@ class Star extends React.PureComponent{
 
     const _this = this;
     _this.init(_this);
-    document.addEventListener("visibilitychange", function() {
-      let hidden = document.hidden;
-      if(hidden){
-        window.cancelAnimationFrame(_this.state.id);
-        clearInterval(_this.state.timer)
-      }else{
-        _this.init()
-      }
-      // Modify behavior...
-    });
+    document.addEventListener("visibilitychange", this.changeVisibilityCallback);
 
 
   }
@@ -47,7 +38,19 @@ class Star extends React.PureComponent{
   componentWillUnmount() {
     window.cancelAnimationFrame(this.state.id);
     clearInterval(this.state.timer)
+    document.removeEventListener('visibilitychange',this.changeVisibilityCallback)
   }
+
+  changeVisibilityCallback = ()=>{
+    let hidden = document.hidden;
+    if(hidden){
+      window.cancelAnimationFrame(this.state.id);
+      clearInterval(this.state.timer)
+    }else{
+      this.init()
+    }
+  }
+
 
   init = () =>{
     let id = window.requestAnimationFrame(this.moveItem);
