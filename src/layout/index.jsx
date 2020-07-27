@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Layout } from "antd";
-const { Header, Content, Footer, Sider } = Layout;
 
 //子路由组件（如果还有子路由继续嵌套）
 //路由组件
@@ -12,16 +11,58 @@ import TagsWrapper from "./tagsNavWrapper";
 //样式组件
 import { LayBox } from "../styledComponents/layout";
 
+
+
+const { Header, Content, Footer, Sider } = Layout;
+
 class JzLayOut extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-
+      collapsed: false
     }
   }
+
+  componentDidMount() {
+    this.checkWidthCallback()
+    window.addEventListener('resize',this.onresize)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize',this.onresize)
+  }
+
+  onresize = ()=>{
+    this.checkWidthCallback()
+  }
+
+  checkWidthCallback = ()=>{
+    const Width = window.innerWidth//浏览器窗口的内部宽度（包括滚动条）
+
+        || document.documentElement.clientWidth
+
+        || document.body.clientWidth;
+    if(Width < 1100){
+      this.onCollapse(true)
+    }else{
+      this.onCollapse(false)
+    }
+  }
+
+  onCollapse = collapsed => {
+    this.setState({ collapsed });
+    if(collapsed === false){
+      this.child.changeStatus(this.props.location.pathname)
+    }
+  };
+
+  onRef = (ref)=>{
+    this.child = ref
+  }
+
   render() {
     return (
-      <LayBox>
+      <LayBox collapsed={this.state.collapsed}>
         <Layout>
           <Sider
               style={{
@@ -31,10 +72,12 @@ class JzLayOut extends React.Component{
                 left: 0,
                 zIndex: 1000
               }}
+              collapsible collapsed={this.state.collapsed}
+              onCollapse={this.onCollapse}
           >
-            <JzMenu {...this.props} />
+            <JzMenu onRef={this.onRef} {...this.props} />
           </Sider>
-          <Layout className="site-layout" style={{ marginLeft: 200 }}>
+          <Layout className="site-layout">
             <div className='top'>
               <Headers></Headers>
               <TagsWrapper></TagsWrapper>

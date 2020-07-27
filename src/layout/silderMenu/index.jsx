@@ -30,6 +30,7 @@ class JzMenu extends React.Component{
   }
 
   componentDidMount() {
+    this.props.onRef(this)
     this.changeStatus(this.props.location.pathname)
     if(this.state.unListen) return;
     this.state.unListen = this.props.history.listen((val)=>{
@@ -113,7 +114,7 @@ class JzMenu extends React.Component{
       list.map((item,index)=>{
         if(item.children && item.children.length && !item.hideMenu){
           return (
-              <SubMenu key={item.path} icon={ item.icon ? <SvgIcon iconClass={item.icon} /> : null} title={item.name}>
+              <SubMenu key={item.path} icon={ item.icon ? <span role="img" aria-label="team" className="anticon anticon-team"><SvgIcon iconClass={item.icon} /></span> : null} title={item.name}>
                 {
                   this.ReturnMenu({list:item.children})
                 }
@@ -121,7 +122,8 @@ class JzMenu extends React.Component{
           )
         }else{
           return (
-              <Menu.Item key={item.path} icon={ item.icon ? <SvgIcon iconClass={item.icon} /> : null} onClick={()=>this.props.history.push(item.Redirect ? item.Redirect : item.path)}>{item.name}</Menu.Item>
+              <Menu.Item key={item.path} icon={ item.icon ?
+                  <span role="img" aria-label="team" className="anticon anticon-team"><SvgIcon iconClass={item.icon}/></span> : null} onClick={()=>this.props.history.push(item.Redirect ? item.Redirect : item.path)}>{item.name}</Menu.Item>
           )
         }
       })
