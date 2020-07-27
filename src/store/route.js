@@ -1,4 +1,4 @@
-import {observable, action, set} from "mobx";
+import {observable, action, set, observe, computed} from "mobx";
 
 class routesStore {
   @observable routes = [];
@@ -20,6 +20,12 @@ class routesStore {
   @action.bound setTags(val){
     this.tags = [...new Set([...this.tags,...val])];
     console.log('存进去了',val)
+  }
+  @action.bound clearTags(){
+    this.tags = [{
+      path:'/a',
+      name:'首页'
+    }]
   }
   @action.bound setActiveKey(val){
     this.activeKey = val;

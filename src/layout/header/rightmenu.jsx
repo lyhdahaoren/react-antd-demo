@@ -6,7 +6,7 @@ import { RightMenu } from "../../styledComponents/layout";
 import Cookie from 'js-cookie'
 import {inject, observer} from "mobx-react";
 
-@inject('user')
+@inject('user','store1')
 @observer
 class Rightmenu extends React.PureComponent{
   constructor(props) {
@@ -32,6 +32,8 @@ class Rightmenu extends React.PureComponent{
   };
 
   loginOut = ()=> {
+    this.props.store1.clearTags()
+    this.props.store1.setActiveKey(0)
     Cookie.remove('token')
     this.props.history.replace('/login')
   }

@@ -97,10 +97,10 @@ class JzMenu extends React.Component{
   //判断当前route是否存在tags中
   checkRouteBytags = (val)=>{
     let { tags } = this.props.store1
+    tags = tags.filter(t => t)
     const item = tags.find(item=>item.path === val.path)
     const index = tags.findIndex(item=>item.path === val.path)
     if(!item){
-      console.log(val.path, this.props.location.pathname)
       this.props.store1.setTags([...tags,val])
     }
     this.props.store1.setActiveKey(index !== -1 ? index : tags.length)
