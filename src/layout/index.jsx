@@ -10,11 +10,14 @@ import Headers from './header'
 import TagsWrapper from "./tagsNavWrapper";
 //样式组件
 import { LayBox } from "../styledComponents/layout";
+import {inject, observer} from "mobx-react";
 
 
 
 const { Header, Content, Footer, Sider } = Layout;
 
+@inject('setting')
+@observer
 class JzLayOut extends React.Component{
   constructor(props) {
     super(props);
@@ -37,16 +40,28 @@ class JzLayOut extends React.Component{
   }
 
   checkWidthCallback = ()=>{
+    const { isMobile,setC } = this.props.setting
     const Width = window.innerWidth//浏览器窗口的内部宽度（包括滚动条）
 
         || document.documentElement.clientWidth
 
         || document.body.clientWidth;
+
+    //控制主体 菜单栏
     if(Width < 1100){
       this.onCollapse(true)
     }else{
       this.onCollapse(false)
     }
+
+    //控制个人信息项
+    if(Width < 800){
+      setC(true)
+    }else{
+      setC(false)
+    }
+
+
   }
 
   onCollapse = collapsed => {
@@ -61,6 +76,7 @@ class JzLayOut extends React.Component{
   }
 
   render() {
+    const { isMobile } = this.props.setting
     return (
       <LayBox collapsed={this.state.collapsed}>
         <Layout>
@@ -182,6 +198,7 @@ class JzLayOut extends React.Component{
                 content
               </div>
             </Content>
+
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
           </Layout>
         </Layout>

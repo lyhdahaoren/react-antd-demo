@@ -9,7 +9,6 @@ const TagsWrapper = Styled.div`
     box-shadow: inset 0 0 3px 2px hsla(0,0%,39.2%,.1);
   }
   .scroll-body{
-      display: inline-block;
       padding: 1px 4px 0;
       overflow: visible;
       white-space: nowrap;
@@ -20,8 +19,11 @@ const TagsWrapper = Styled.div`
           color: #515a6e!important;
           background: #fff!important;
           margin-right:3px;
-          display:inline-block
         }
+      }
+      .flex{
+          display:flex;
+          align-items:center;
       }
   }
   .ant-tag{

@@ -48,7 +48,7 @@ class tagsWrapper extends React.Component{
       <TagsWrapper>
         <div className='scroll-outer'>
           <div className='scroll-body'>
-            <span>
+            <span className='flex'>
               {
                 tags.map((item,index)=>{
                   return(

@@ -6,7 +6,7 @@ import { RightMenu } from "../../styledComponents/layout";
 import Cookie from 'js-cookie'
 import {inject, observer} from "mobx-react";
 
-@inject('user','store1')
+@inject('user','store1','setting')
 @observer
 class Rightmenu extends React.PureComponent{
   constructor(props) {
@@ -41,18 +41,18 @@ class Rightmenu extends React.PureComponent{
   render() {
     const { info } = this.props.user
     return(
-        <RightMenu>
-          {
-            this.props.children
-          }
-          <Dropdown overlay={()=>this.menu()} trigger={['click']}>
-            <div>
-              <Avatar size={40} icon={<UserOutlined />} />
-              <span style={{margin: '0 10px'}}>{info.username}</span>
-              <DownOutlined />
-            </div>
-          </Dropdown>
-        </RightMenu>
+      <RightMenu>
+        {
+          this.props.children
+        }
+        <Dropdown overlay={()=>this.menu()} trigger={['click']}>
+          <div>
+            <Avatar size={40} icon={<UserOutlined />} />
+            <span style={{margin: '0 10px'}}>{info.username}</span>
+            <DownOutlined />
+          </div>
+        </Dropdown>
+      </RightMenu>
     )
   }
 }
