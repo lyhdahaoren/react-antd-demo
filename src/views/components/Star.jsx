@@ -102,9 +102,9 @@ class Star extends React.PureComponent{
     ctx.clearRect(0,0,current.width,current.height);
     let barr = this.state.arr.map(item => {
       return{
-        x:item.x,
-        y:item.y - 0.5,
-        radius: item.radius,
+        x:item.x - 1,
+        y:item.y - .5,
+        radius: item.radius + 0.001,
         opacity: item.opacity
       }
     })

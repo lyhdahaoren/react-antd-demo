@@ -47,12 +47,9 @@ class JzMenu extends React.Component{
   changeStatus = (val) => {
     const arr = this.getFaterRoute(val);
     this.setState({
-      openKeys : arr
-    })
-    console.log('我是', arr)
-    this.setState({
+      openKeys : arr,
       selectKeys : [val]
-    });
+    })
     this.computedCrumbData(arr);
   }
 
@@ -83,7 +80,6 @@ class JzMenu extends React.Component{
         }
       }
     })
-    console.log('面包屑', arr,val)
     if(arr.length && arr.length !== val.length){
       this.props.history.replace('/404')
       document.title = '404'
@@ -131,17 +127,18 @@ class JzMenu extends React.Component{
   }
 
   //手风琴效果(可展开收起)
-  onOpenChange = openKeys => {
-    let latestOpenKey = '';
-    if(openKeys.length < this.state.openKeys.length){
-      latestOpenKey = this.state.openKeys.find(key => openKeys.indexOf(key) === -1);
-    }else{
-      latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
-    }
-    if(latestOpenKey){
-      const aboutLast = openKeys.filter(i => latestOpenKey.indexOf(i) !== -1)
+  onOpenChange = keys => {
+    const { list } = this.props
+    const lists = list && list.length ? list : List[2].children
+    const { openKeys } = this.state
+    const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
+    if (lists.findIndex(listItem => listItem.path === latestOpenKey) === -1) {
       this.setState({
-        openKeys : aboutLast
+        openKeys : keys
+      })
+    } else {
+      this.setState({
+        openKeys : latestOpenKey ? [latestOpenKey] : []
       })
     }
   };
@@ -153,8 +150,8 @@ class JzMenu extends React.Component{
           <Menu
               // onClick={this.handleClick}
               theme={'dark'}
-              selectedKeys={this.state.openKeys}
               mode="inline"
+              selectedKeys={this.state.selectKeys}
               openKeys={this.state.openKeys}
               onOpenChange={this.onOpenChange}
           >

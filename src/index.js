@@ -8,6 +8,12 @@ import routesList from '@/router'
 //路由组件
 import Routes from '@/router/route'
 
+// 国际化
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/es/locale/zh_CN';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
 
 // icon
 import '@/assets/icon'
@@ -21,11 +27,13 @@ import store from '@/store'
 ReactDOM.render(
 	//是否开启严格模式
   // <React.StrictMode>
-  <Provider {...store}>
-    <Router>
-      <Routes routesList={routesList} />
-    </Router>
-  </Provider>,
+  <ConfigProvider locale={zhCN}>
+    <Provider {...store}>
+      <Router>
+        <Routes routesList={routesList} />
+      </Router>
+    </Provider>
+  </ConfigProvider>,
   // </React.StrictMode>,
   document.getElementById('root')
 );

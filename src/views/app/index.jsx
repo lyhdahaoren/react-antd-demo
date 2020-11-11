@@ -8,6 +8,10 @@ import {inject, observer} from "mobx-react";
 //路由组件
 import Routes from '@/router/route'
 
+import Search from '@/components/search/index'
+import ProTable from '@/components/search/proTable'
+
+import { Button } from 'antd'
 
 @inject('store')
 @observer
@@ -15,12 +19,52 @@ class Login extends React.Component{
   constructor(props){
     super(props);
     this.state={
-      ipt:''
+      ipt:'',
+      fromList: [
+        {
+          name: 'userName',
+          type: 'input',
+          label: '姓名',
+          rules: null
+        },
+        {
+          name: 'date-picker',
+          type: 'datePicker',
+          label: '日期选择器',
+          rules: null,
+          option: {
+            showTime: true
+          }
+        },
+        {
+          name: 'range-picker',
+          type: 'RangePicker',
+          label: '日期起始选择器',
+          rules: null,
+          option: {
+            showTime: true
+          }
+        },
+        {
+          name: 'select',
+          type: 'Select',
+          label: '选择器',
+          rules: null,
+        },
+        {
+          name: 'cascader',
+          type: 'Cascader',
+          label: '级联选择器',
+          rules: null,
+        },
+      ],
+      option: {
+        isSubmit: true
+      }
     }
   }
 
   componentDidMount(){
-    console.log(this.props)
   }
 
   changeData = (e)=>{
@@ -33,11 +77,15 @@ class Login extends React.Component{
     Cookie.set('token',this.ipt)
     this.props.history.replace('/app')
   };
+  submit = (_this) => {
+  }
 
   render(){
     return(
       <>
-        <div>123</div>
+        {/* <Search fromList={this.state.fromList} option={this.state.option}>
+        </Search> */}
+        <ProTable></ProTable>
         <Routes routesList={this.props.itemList} />
       </>
     )

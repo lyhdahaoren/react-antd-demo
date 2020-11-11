@@ -32,6 +32,26 @@ const routesList = [
         },
         exact:true,
         icon: 'saas',
+        name:'撒旦法历史肯定会发给德里克发过火撒旦法历史肯定会发给德里克发过火',
+        component:loadable('app/index'),
+      },
+      {
+        path:'/e',
+        meta:{
+          name: '123'
+        },
+        exact:true,
+        icon: 'saas',
+        name:'撒旦法历史肯定会发给德里克发过火',
+        component:loadable('app/index'),
+      },
+      {
+        path:'/f',
+        meta:{
+          name: '123'
+        },
+        exact:true,
+        icon: 'saas',
         name:'首页',
         component:loadable('app/index'),
       },

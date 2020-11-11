@@ -1,12 +1,12 @@
 import React from "react";
 import SvgIcon from "../components/public/svg";
-import { flex_c_c } from "../styledComponents/public";
+import * as flex from "../styledComponents/public";
 import Styled from 'styled-components'
 import { withRouter } from "react-router";
 
 const NotFound = Styled.div`
   font-size:1000px;
-  ${flex_c_c};
+  ${flex.flex_c_c};
   .method{
     font-size:16px;
   }
