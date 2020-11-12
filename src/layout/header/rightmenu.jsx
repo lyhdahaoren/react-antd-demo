@@ -13,7 +13,6 @@ class Rightmenu extends React.PureComponent{
     super(props);
   }
   componentDidMount() {
-    console.log(this.props)
   }
 
   menu = () => {

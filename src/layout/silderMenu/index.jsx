@@ -45,12 +45,33 @@ class JzMenu extends React.Component{
 
   //初始或者路由切换触发面包屑 导航栏变化
   changeStatus = (val) => {
+    // list 为后台角色权限路由
+    const list = this.props.store1.routes.length ? this.props.store1.routes : List[3].children
+    // allList 为前端设置所有路由
+    let allList = List
+    const isFlag404 = this.getUrlInLine(val, allList)
+    const isFlag500 = this.getUrlInLine(val, list)
+    if (!isFlag404.flag) {
+      this.props.history.replace('/404')
+      document.title = '404'
+      return;
+    }
+    const arrd = ['/login', '/404', '/500']
+    if (!isFlag500.flag && arrd.indexOf(val) === -1) {
+      this.props.history.replace('/500')
+      document.title = '500'
+      return
+    }
     const arr = this.getFaterRoute(val);
     this.setState({
       openKeys : arr,
-      selectKeys : [val]
+      selectKeys : arr
     })
-    this.computedCrumbData(arr);
+    const pparr = arr.map(t => {
+      return this.getUrlInLine(t, allList).obj
+    })
+    console.log(pparr)
+    this.computedCrumbData(pparr, isFlag500.obj);
   }
 
   //获取当前路由的父级们
@@ -63,32 +84,44 @@ class JzMenu extends React.Component{
     return defaultArr
   }
 
-  //同步面包屑，同步tags
-  computedCrumbData = (val)=> {
-    const list = this.props.store1.routes.length ? this.props.store1.routes : List[2].children
-    let arr = [];
-    let faterRoute = list;
-    val.map(item=>{
-      for(let i = 0; i < faterRoute.length; i++) {
-        if(faterRoute[i].path === item){
-          arr.push({
-            name: faterRoute[i].name,
-            path: faterRoute[i].path
-          })
-          faterRoute = faterRoute[i].children || [];
-          break;
+  // 查询当前url 是否有权限或者404
+
+  getUrlInLine(url, arr) {
+    let index = 0
+    let flag = {
+      flag: false,
+      obj: {}
+    }
+    while(index < arr.length) {
+      const arrs = arr[index].children
+      if (arr[index].path === url) {
+        flag = {
+          flag: true,
+          obj: arr[index]
+        }
+        return flag
+      } else {
+        if(arrs) {
+          if (!flag.flag) {
+            flag = this.getUrlInLine(url, arrs)
+          } else {
+            return flag
+          }
         }
       }
-    })
-    if(arr.length && arr.length !== val.length){
-      this.props.history.replace('/404')
-      document.title = '404'
-    }else{
-      document.title = arr.length ? arr[arr.length - 1].name || '' : List.find(t => t.path === val[0]).name
+      index++
     }
+    return flag
+  }
+
+  /**
+   * 同步面包屑，同步tags
+   * @param {val} 当前路由层级   例：/a/b/c   val为[/a, /a/b, /a/b/c]
+   */
+  computedCrumbData = (arr, last)=> {
+    console.log(arr)
     this.props.store1.setCrumbData(arr)
-    let lastData = arr[arr.length - 1] || '';
-    this.checkRouteBytags(lastData)
+    this.checkRouteBytags(last)
   }
 
   //判断当前route是否存在tags中
@@ -105,7 +138,7 @@ class JzMenu extends React.Component{
 
   //动态生成submenu
   ReturnMenu = (props) => {
-    const list = props.list.length ? props.list : List[2].children
+    const list = props.list.length ? props.list : List[3].children
     return (
       list.map((item,index)=>{
         if(item.children && item.children.length && !item.hideMenu){
@@ -129,7 +162,7 @@ class JzMenu extends React.Component{
   //手风琴效果(可展开收起)
   onOpenChange = keys => {
     const { list } = this.props
-    const lists = list && list.length ? list : List[2].children
+    const lists = list && list.length ? list : List[3].children
     const { openKeys } = this.state
     const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
     if (lists.findIndex(listItem => listItem.path === latestOpenKey) === -1) {

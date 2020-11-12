@@ -3,10 +3,7 @@ import {observable, action, set, observe, computed} from "mobx";
 class routesStore {
   @observable routes = [];
   @observable crumb = [];
-  @observable tags = [{
-    path:'/a',
-    name:'首页'
-  }];
+  @observable tags = [];
   @observable activeKey = 0;
 
   @action.bound setRoutes(val){
@@ -19,17 +16,12 @@ class routesStore {
 
   @action.bound setTags(val){
     this.tags = [...new Set([...this.tags,...val])];
-    console.log('存进去了',val)
   }
   @action.bound clearTags(){
-    this.tags = [{
-      path:'/a',
-      name:'首页'
-    }]
+    this.tags = []
   }
   @action.bound setActiveKey(val){
     this.activeKey = val;
-    console.log('我是当前触发',val)
   }
 }
 

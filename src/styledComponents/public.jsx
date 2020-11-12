@@ -17,3 +17,10 @@ export const flex_b_c = css`
   align-items:center;
   justify-content:space-between;
 `;
+
+export const flex_column_c = css`
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;

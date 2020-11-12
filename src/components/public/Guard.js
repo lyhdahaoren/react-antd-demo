@@ -10,7 +10,7 @@ class Guard extends React.Component{
       isUser:false
     }
   }
-  componentWillMount(){
+  componentDidMount(){
     let { pathname } = this.props.location
     if(!Cookie.get('token')){
       if(pathname !== '/login'){

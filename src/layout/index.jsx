@@ -46,9 +46,12 @@ class JzLayOut extends React.Component{
         || document.body.clientWidth;
 
     //控制主体 菜单栏
+    const { collapsed } = this.state
     if(Width < 1100){
+      if (collapsed) return
       this.onCollapse(true)
     }else{
+      if (!collapsed) return
       this.onCollapse(false)
     }
 
@@ -63,9 +66,20 @@ class JzLayOut extends React.Component{
   }
 
   onCollapse = collapsed => {
-    this.setState({ collapsed });
-    if(collapsed === false){
-      this.child.changeStatus(this.props.location.pathname)
+    if (collapsed) {
+      this.child.setState({
+        openKeys: []
+      }, () => {
+        this.setState({
+          collapsed
+        })
+      })
+    } else {
+      this.setState({
+        collapsed
+      }, () => {
+        this.child.changeStatus(this.props.location.pathname)
+      })
     }
   };
 
@@ -97,12 +111,12 @@ class JzLayOut extends React.Component{
               <TagsWrapper></TagsWrapper>
             </div>
             <Content style={{ margin: '24px 16px 0', overflow: 'initial',paddingTop:'95px' }}>
-              <div className="site-layout-background ass" style={{ padding: 24, textAlign: 'center' }}>
+              <div className="site-layout-background ass" style={{ padding: 24 }}>
                 <Routes routesList={this.props.itemList} />
               </div>
             </Content>
 
-            <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+            <Footer style={{ textAlign: 'center' }}>Juzi ©2020 Created by Juzi FED</Footer>
           </Layout>
         </Layout>
       </LayBox>

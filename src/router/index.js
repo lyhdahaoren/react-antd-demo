@@ -20,33 +20,19 @@ const routesList = [
     component:loadable('noMatch'),
   },
   {
+    path:'/500',
+    name:'无权限访问',
+    exact:true,
+    component:loadable('noAuth'),
+  },
+  {
     path:'/',
     name:'框架',
     component:loadable('apps'),
-    Redirect: '/a',
+    Redirect: '/index',
     children:[
       {
-        path:'/a',
-        meta:{
-          name: '123'
-        },
-        exact:true,
-        icon: 'saas',
-        name:'撒旦法历史肯定会发给德里克发过火撒旦法历史肯定会发给德里克发过火',
-        component:loadable('app/index'),
-      },
-      {
-        path:'/e',
-        meta:{
-          name: '123'
-        },
-        exact:true,
-        icon: 'saas',
-        name:'撒旦法历史肯定会发给德里克发过火',
-        component:loadable('app/index'),
-      },
-      {
-        path:'/f',
+        path:'/index',
         meta:{
           name: '123'
         },
@@ -56,78 +42,36 @@ const routesList = [
         component:loadable('app/index'),
       },
       {
-        path:'/b',
+        path:'/comp',
         meta:{
           name: '123'
         },
-        icon: 'saas',
-        name:'我是个栏目',
-        component:loadable('app/index'),
-        children:[
+        icon: 'component',
+        name:'组件',
+        component:loadable('app/comp/base'),
+        children: [
           {
-            path: '/b/a',
-            name: '我是个栏目的子栏目',
-            component:loadable('page'),
-          }
-        ]
-      },
-      {
-        path:'/c',
-        meta:{
-          name: '123'
-        },
-        icon: 'saas',
-        name:'我是个栏目1',
-        component:loadable('app/index'),
-        children:[
-          {
-            path: '/c/b',
-            Redirect:'/c/b/a',
-            name: '我是个栏目1的子栏目1（我重定向到了列表页）',
-            hideMenu:true,
-            children: [
-              {
-                path: '/c/b/a',
-                name: '我是个栏目1的子栏目1的列表，但是我隐藏了（列表，详情，新增，修改）',
-                component:loadable('page'),
-              },{
-                path: '/c/b/b',
-                name: '我是个栏目1的子栏目1的详情，但是我隐藏了（列表，详情，新增，修改）',
-                component:loadable('page'),
-              }
-            ],
-            component:loadable('page'),
-          },
-        ]
-      },
-      {
-        path:'/d',
-        meta:{
-          name: '123'
-        },
-        icon: 'saas',
-        name:'dashboard',
-        component:loadable('app/index'),
-        children:[
-          {
-            path: '/d/ba',
-            name: '123123',
-            component:loadable('page'),
-            children:[
-              {
-                path: '/d/ba/a',
-                name: '123123',
-                component:loadable('page'),
-              }
-            ]
+            path:'/comp/charts',
+            meta:{
+              name: '123'
+            },
+            exact:true,
+            icon: 'chart',
+            name:'图表',
+            component:loadable('app/comp/chart/chart'),
           },
           {
-            path: '/d/bb',
-            name: '123123',
-            component:loadable('page'),
-          }
+            path:'/comp/drop',
+            meta:{
+              name: '123'
+            },
+            exact:true,
+            icon: 'chart',
+            name:'列表拖拽',
+            component:loadable('app/comp/drop/sortable'),
+          },
         ]
-      },
+      }
     ]
   }
 ];

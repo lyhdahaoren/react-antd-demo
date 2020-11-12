@@ -47,7 +47,7 @@ class Not extends React.PureComponent{
       <NotFound>
         <SvgIcon iconClass='error-404' svgClass='img404' />
         <div className='method'>
-          <p>404</p>
+          <p>500：无权限</p>
           <p>{this.state.time}秒后自动返回上一页</p>
         </div>
       </NotFound>

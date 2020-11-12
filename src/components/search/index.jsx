@@ -5,10 +5,8 @@ class Search extends React.Component {
         super(props)
     }
     onFinish = values => {
-        console.log(values);
     };
     componentDidMount() {
-        console.log(this.props)
     }
     render() {
         const { option, fromList } = this.props

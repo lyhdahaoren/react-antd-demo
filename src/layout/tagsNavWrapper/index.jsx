@@ -10,14 +10,21 @@ import { withRouter } from "react-router";
 class tagsWrapper extends React.Component{
   constructor(props) {
     super(props);
-
+    this.scrollRef = React.createRef()
+    this.TagRef = []
   }
-  componentDidMount() {
-    console.log(this.props.store1.activeKey)
+  componentWillUpdate() {
+    this.TagRef = []
   }
-
-  go(val){
+  getRef(dom) {
+    if (dom) {
+      this.TagRef.push(dom)
+    }
+  }
+  go(val, i){
     if(val.path !== this.props.location.pathname){
+      const left = this.TagRef[i].offsetLeft - (this.scrollRef.current.offsetWidth / 2)
+      this.scrollRef.current.scrollTo(left, 0)
       this.props.history.push(val.path)
       window.scrollTo(0,0)
     }
@@ -46,14 +53,14 @@ class tagsWrapper extends React.Component{
     tags = tags.filter(t=>t)
     return(
       <TagsWrapper>
-        <div className='scroll-outer'>
+        <div className='scroll-outer' ref={this.scrollRef}>
           <div className='scroll-body'>
             <span className='flex'>
               {
                 tags.map((item,index)=>{
                   return(
-                      <div className='asdd' key={index} onClick={()=>this.go(item)}>
-                        <Tag onClose={($event) => this.close($event,index)} icon={<span className={`diandian ${activeKey === index ? 'active' : ''}`} style={{fontSize:'30px',display:'block',height:'30px'}}><SvgIcon iconClass='rac' /></span>} closable key={index}>
+                      <div className='asdd' key={index} onClick={()=>this.go(item, index)}>
+                        <Tag ref={(dom) => this.getRef(dom)} onClose={($event) => this.close($event,index)} icon={<span className={`diandian ${activeKey === index ? 'active' : ''}`} style={{fontSize:'30px',display:'block',height:'30px'}}><SvgIcon iconClass='rac' /></span>} closable key={index}>
                           {item.name}
                         </Tag>
                       </div>

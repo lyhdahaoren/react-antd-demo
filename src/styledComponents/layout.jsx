@@ -1,4 +1,3 @@
-import React from "react";
 import Styled from 'styled-components'
 import { flex_b_c, flex_s_c } from "./public"
 
