@@ -1,19 +1,23 @@
 import React from "react";
-//面包屑
+// 面包屑
 import Crumb from "./crumb";
-import Rightmenu from './rightmenu'
-import {Layout} from "antd";
+import Rightmenu from "./rightmenu";
+import { Layout } from "antd";
+import { inject, observer } from "mobx-react";
+
 const { Header } = Layout;
 
-export default function (props) {
-return(
+@inject("setting")
+@observer
+class Headers extends React.Component {
+  render() {
+    return (
       <Header className="site-layout-background1">
         <Crumb></Crumb>
-        <Rightmenu>
-          <div className='add' style={{marginRight:'10px'}}>
-            我是很多增加的按钮
-          </div>
-        </Rightmenu>
+        <Rightmenu></Rightmenu>
       </Header>
-  )
+    );
+  }
 }
+
+export default Headers;

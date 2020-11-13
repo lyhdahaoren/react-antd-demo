@@ -1,26 +1,34 @@
-import {css} from "styled-components";
+import { css } from "styled-components";
 
 export const flex_c_c = css`
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const flex_s_c = css`
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 `;
 
 export const flex_b_c = css`
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const flex_column_c = css`
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+
+export const ellipsis = css`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `;

@@ -1,4 +1,4 @@
-import Styled from 'styled-components'
+import Styled from "styled-components";
 import { flex_c_c } from "./public";
 
 const TagsWrapper = Styled.div`
@@ -41,4 +41,4 @@ const TagsWrapper = Styled.div`
   }
 `;
 
-export default TagsWrapper
+export default TagsWrapper;

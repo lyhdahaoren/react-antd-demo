@@ -1,3 +1,4 @@
-const requireAll = requireContext => requireContext.keys().map(requireContext)
-const svgs = require.context("./svg", false, /\.svg$/)
-requireAll(svgs)
+const requireAll = (requireContext) =>
+  requireContext.keys().map(requireContext);
+const svgs = require.context("./svg", false, /\.svg$/);
+requireAll(svgs);

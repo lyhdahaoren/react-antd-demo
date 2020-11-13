@@ -1,26 +1,23 @@
-import * as React from 'react'
-import Cookie from 'js-cookie'
-import {inject, observer} from "mobx-react";
-import IndexImg from '@/assets/images/timg.gif'
+import * as React from "react";
+import { inject, observer } from "mobx-react";
 
-@inject('store')
+@inject("store")
 @observer
-class Login extends React.Component{
-  constructor(props){
+class Login extends React.Component {
+  constructor(props) {
     super(props);
+    this.state = {};
   }
 
-  componentDidMount(){
-  }
+  componentDidMount() {}
 
-  render(){
-    return(
+  render() {
+    return (
       <>
-        <img src={IndexImg} />
+        <p>欢迎使用同爸爸打我！</p>
       </>
-    )
+    );
   }
 }
-
 
 export default Login;

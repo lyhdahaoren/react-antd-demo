@@ -1,13 +1,13 @@
-import {observable,action} from "mobx";
+import { observable, action } from "mobx";
 
 class userStore {
-  @observable info = sessionStorage['info'] ? JSON.parse(sessionStorage['info']) : {
+  @observable info = sessionStorage["info"]
+    ? JSON.parse(sessionStorage["info"])
+    : {};
 
-  }
-
-  @action.bound setInfo(val){
+  @action.bound setInfo(val) {
     this.info = val;
-    sessionStorage.setItem('info',JSON.stringify(val))
+    sessionStorage.setItem("info", JSON.stringify(val));
   }
 }
 

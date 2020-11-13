@@ -1,18 +1,17 @@
-const returnUrl = (val)=>{
+const returnUrl = (val) => {
   let obj = {};
   try {
     switch (val) {
-      case 'development':
+      case "development":
         break;
-      case 'dev':
+      case "dev":
         break;
-      case 'production':
+      case "production":
         break;
       default:
     }
-  } catch (e) {
-  }
+  } catch (e) {}
   return obj;
-}
+};
 
 export default returnUrl;

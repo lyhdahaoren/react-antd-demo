@@ -1,20 +1,15 @@
-import * as React from 'react'
-import { Layout, Menu } from 'antd';
-import { Route,Redirect } from 'react-router-dom'
+import * as React from "react";
 
 import JzLayOut from "../layout";
 
-
-
-class App extends React.Component{
-  constructor(props){
+class App extends React.Component {
+  constructor(props) {
     super(props);
-    this.state={
-      collapsed:false
-    }
+    this.state = {
+      collapsed: false,
+    };
   }
-  componentDidMount(){
-  }
+  componentDidMount() {}
 
   toggle = () => {
     this.setState({
@@ -22,14 +17,13 @@ class App extends React.Component{
     });
   };
 
-  render(){
-    return(
+  render() {
+    return (
       <>
         <JzLayOut {...this.props}></JzLayOut>
       </>
-    )
+    );
   }
 }
-
 
 export default App;
