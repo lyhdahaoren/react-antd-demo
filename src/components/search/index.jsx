@@ -70,7 +70,11 @@ class Search extends React.Component {
                   <Col
                     key={i}
                     style={{ marginBottom: "10px" }}
-                    span={t.type ? 6 : 0}
+                    xl={t.type ? 6 : 0}
+                    xs={t.type ? 24 : 0}
+                    lg={t.type ? 6 : 0}
+                    md={t.type ? 8 : 0}
+                    sm={t.type ? 12 : 0}
                   >
                     {t.type === "input" ? (
                       <Form.Item
