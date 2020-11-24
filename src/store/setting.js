@@ -2,8 +2,10 @@ import { observable, action } from "mobx";
 
 class setting {
   @observable isMobile = false;
-  @observable isOpenTags = false;
-  @observable theme = localStorage["theme"] ? localStorage["theme"] : "dark";
+  @observable isOpenTags = localStorage["isOpenTags"]
+    ? JSON.parse(localStorage["isOpenTags"])
+    : false;
+  @observable theme = localStorage["theme"] ? localStorage["theme"] : "light";
 
   @action.bound setC(val) {
     this.isMobile = val;
@@ -11,6 +13,7 @@ class setting {
   }
   @action.bound setOpenTags(val) {
     this.isOpenTags = val;
+    localStorage.setItem("isOpenTags", val);
   }
   @action.bound setTheme(val) {
     this.theme = val;

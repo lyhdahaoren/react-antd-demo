@@ -109,7 +109,7 @@ class JzLayOut extends React.Component {
             onCollapse={this.onCollapse}
           >
             <JzMenu
-              title="爸爸打我"
+              title="hello world"
               onRef={this.onRef}
               collapsed={this.state.collapsed}
               {...this.props}

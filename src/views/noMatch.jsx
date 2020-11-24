@@ -18,12 +18,11 @@ const NotFound = Styled.div`
 class Not extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      set: "",
+      time: 5,
+    };
   }
-  state = {
-    set: "",
-    time: 5,
-  };
   componentDidMount() {
     let set = setInterval(() => {
       if (this.state.time === 0) {

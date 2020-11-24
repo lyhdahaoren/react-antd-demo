@@ -21,6 +21,7 @@
     "lint-staged": "^10.5.1",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
+    "path-to-regexp": "^6.2.0",
     "prettier": "^2.1.2",
     "progress-bar-webpack-plugin": "^2.1.0",
     "react": "^17.0.1",

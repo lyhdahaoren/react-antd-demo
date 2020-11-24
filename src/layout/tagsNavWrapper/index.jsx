@@ -26,7 +26,7 @@ class tagsWrapper extends React.Component {
       const left =
         this.TagRef[i].offsetLeft - this.scrollRef.current.offsetWidth / 2;
       this.scrollRef.current.scrollTo(left, 0);
-      this.props.history.push(val.path);
+      this.props.history.push(val.path + (val.search ? val.search : ""));
       window.scrollTo(0, 0);
     }
   }

@@ -9,7 +9,7 @@ import { inject, observer } from "mobx-react";
 import SvgIcon from "../../components/public/svg";
 
 import Logo from "@/assets/images/logo.png";
-
+import { pathToRegexp } from "path-to-regexp";
 const { SubMenu } = Menu;
 
 @inject("store1", "setting")
@@ -29,11 +29,12 @@ class JzMenu extends React.Component {
 
   componentDidMount() {
     this.props.onRef(this);
-    this.changeStatus(this.props.location.pathname);
+    console.log(this.props.location);
+    this.changeStatus(this.props.location.pathname, this.props.location.search);
     if (this.state.unListen) return;
     this.setState({
       unListen: this.props.history.listen((val) => {
-        this.changeStatus(val.pathname);
+        this.changeStatus(val.pathname, val.search);
       }),
     });
   }
@@ -44,7 +45,7 @@ class JzMenu extends React.Component {
   }
 
   // 初始或者路由切换触发面包屑 导航栏变化
-  changeStatus = (val) => {
+  changeStatus = (val, search) => {
     // list 为后台角色权限路由
     const list = this.props.store1.routes.length
       ? this.props.store1.routes
@@ -53,6 +54,8 @@ class JzMenu extends React.Component {
     let allList = List;
     const isFlag404 = this.getUrlInLine(val, allList);
     const isFlag500 = this.getUrlInLine(val, list);
+    console.log(isFlag404);
+    console.log(isFlag500);
     if (!isFlag404.flag) {
       this.props.history.replace("/404");
       document.title = "404";
@@ -64,6 +67,7 @@ class JzMenu extends React.Component {
       document.title = "500";
       return;
     }
+    if (search) isFlag500.obj.search = search;
     const arr = this.getFaterRoute(val);
     this.setState({
       openKeys: arr,
@@ -100,10 +104,14 @@ class JzMenu extends React.Component {
     };
     while (index < arr.length) {
       const arrs = arr[index].children;
-      if (arr[index].path === url) {
+      let re = pathToRegexp(arr[index].path);
+      if (re.exec(url)) {
         flag = {
           flag: true,
-          obj: arr[index],
+          obj: {
+            ...arr[index],
+            path: url,
+          },
         };
         return flag;
       } else {
@@ -125,8 +133,10 @@ class JzMenu extends React.Component {
    * @param {val} 当前路由层级   例：/a/b/c   val为[/a, /a/b, /a/b/c]
    */
   computedCrumbData = (arr, last) => {
-    this.props.store1.setCrumbData(arr);
-    this.checkRouteBytags(last);
+    this.props.store1.setCrumbData(arr.filter((t) => t.name));
+    this.checkRouteBytags({
+      ...last,
+    });
   };
 
   // 判断当前route是否存在tags中
